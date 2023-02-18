@@ -1,7 +1,6 @@
 package seminars.second.simple_shopping_cart;
 
 import org.junit.jupiter.api.*;
-import org.junit.jupiter.api.condition.DisabledForJreRange;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import seminars.second.model.Cart;
@@ -197,9 +196,7 @@ class ShopTest {
         Shop shop = new Shop(getStoreItems());
         Cart cart = new Cart(shop);
         // Act (Выполнение)
-        RuntimeException exception = assertThrows(RuntimeException.class, () -> {
-            cart.addProductToCartByID(i);
-        });
+        RuntimeException exception = assertThrows(RuntimeException.class, () -> cart.addProductToCartByID(i));
         // Assert (Проверка утверждения)
         String expectedMessage = "Не найден продукт с id: " + i;
         String actualMessage = exception.getMessage();
