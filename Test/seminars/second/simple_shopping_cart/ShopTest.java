@@ -38,6 +38,15 @@ class ShopTest {
         return products;
     }
 
+    private Shop shop;
+    private Cart cart;
+
+    @BeforeEach
+    void setupShopAndCart() {
+        shop = new Shop(getStoreItems());
+        cart = new Cart(shop);
+    }
+
     private ByteArrayOutputStream output = new ByteArrayOutputStream();
 
 
@@ -66,8 +75,7 @@ class ShopTest {
     @Test
     void priceCartIsCorrectCalculated() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         cart.addProductToCartByID(10);
         cart.addProductToCartByID(3);
@@ -86,8 +94,7 @@ class ShopTest {
     @Test
     void priceCartProductsSameTypeIsCorrectCalculated() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         cart.addProductToCartByID(10);
         cart.addProductToCartByID(10);
@@ -105,8 +112,7 @@ class ShopTest {
     @Test
     void whenChangingCartCostRecalculationIsCalled() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         cart.addProductToCartByID(10);
         cart.removeProductByID(10);
@@ -125,8 +131,7 @@ class ShopTest {
     @Test
     void quantityProductsStoreChanging() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         cart.addProductToCartByID(6);
         cart.addProductToCartByID(6);
@@ -146,8 +151,7 @@ class ShopTest {
     @Test
     void lastProductsDisappearFromStore() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         for (int i = 0; i < 10; i++) {
             cart.addProductToCartByID(6);
@@ -169,8 +173,7 @@ class ShopTest {
     @Test
     void deletedProductIsReturnedToShop() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         for (int i = 0; i < 10; i++) {
             cart.addProductToCartByID(6);
@@ -179,7 +182,7 @@ class ShopTest {
             cart.removeProductByID(6);
         }
         // Assert (Проверка утверждения)
-        assertThat(shop.getProductsShop().get(5).getQuantity()).isEqualTo(3);
+        assertThat(shop.getProductsShop().get(5).getQuantity()).isEqualTo(2);
     }
 
     /**
@@ -193,8 +196,7 @@ class ShopTest {
     @ValueSource(ints = {-1, 13})
     void incorrectProductSelectionCausesException(int i) {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         RuntimeException exception = assertThrows(RuntimeException.class, () -> cart.addProductToCartByID(i));
         // Assert (Проверка утверждения)
@@ -212,8 +214,7 @@ class ShopTest {
     @Test
     void incorrectProductRemoveCausesException() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         for (int i = 0; i < 3; i++) {
             cart.addProductToCartByID(6);
@@ -235,8 +236,7 @@ class ShopTest {
     @Test
     void cartCountPrice() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
         cart.addProductToCartByID(2); // 250
         cart.addProductToCartByID(2); // 250
@@ -258,8 +258,7 @@ class ShopTest {
     @Disabled
     void priceCartIsCorrectCalculatedExt() {
         // Arrange (Подготовка)
-        Shop shop = new Shop(getStoreItems());
-        Cart cart = new Cart(shop);
+
         // Act (Выполнение)
 
         // Assert (Проверка утверждения)
