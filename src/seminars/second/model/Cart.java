@@ -60,10 +60,9 @@ public class Cart {
         if (productInShop.getQuantity() == 0) {
             try {
                 throw new NoSuchFieldException("Этого товара нет в наличии");
-            }catch (NoSuchFieldException e){
+            } catch (NoSuchFieldException e) {
                 throw new RuntimeException("Этого товара нет в наличии");
-            };
-            return;
+            }
         }
 
         // Изменяем кол-во в корзине +1
